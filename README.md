@@ -66,10 +66,9 @@ The scoring system assigns points based on these criteria, with a maximum score 
 - Don't use personal information
 - Use different passwords for different sites
 
-## Version
-
-Current version: 1.2
-
-## License
-
-[Add your license information here]
+## Team Members
+- Amira Roumili
+- Imane Haddad
+- Hadjer Bourdjiba
+- Rahil Ghanem
+- Meriem Ghorab
