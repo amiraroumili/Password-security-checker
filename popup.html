@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Password Checker</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="pw-checker-popup-body">
+    <div class="pw-checker-popup-container">
+      <h2 class="pw-checker-popup-h2">Password Strength Checker</h2>
+      <input type="password" id="password" class="pw-checker-popup-password" placeholder="Enter password" autocomplete="off" />
+      
+      <div id="strength-meter" class="pw-checker-strength-meter">
+        <div id="strength-indicator" class="pw-checker-strength-indicator"></div>
+      </div>
+      <div id="strength-label" class="pw-checker-strength-label">Type to check</div>
+      
+      <ul id="checklist" class="pw-checker-popup-checklist">
+        <li><span id="len" class="pw-checker-popup-box"></span> At least 8 characters</li>
+        <li><span id="upper" class="pw-checker-popup-box"></span> Uppercase letter</li>
+        <li><span id="lower" class="pw-checker-popup-box"></span> Lowercase letter</li>
+        <li><span id="number" class="pw-checker-popup-box"></span> Number</li>
+        <li><span id="special" class="pw-checker-popup-box"></span> Special character</li>
+        <li><span id="space" class="pw-checker-popup-box"></span> No spaces</li>
+      </ul>
+      
+      <div id="crack-info" class="pw-checker-crack-info"></div>
+      
+      <div class="pw-checker-tips">
+        <h4>Password Tips:</h4>
+        <ul>
+          <li>Use a phrase you can remember</li>
+          <li>Mix letters, numbers, and symbols</li>
+          <li>Don't use personal information</li>
+          <li>Use different passwords for different sites</li>
+        </ul>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

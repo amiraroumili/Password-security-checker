@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Enhanced Password Strength Checker",
+  "version": "1.2",
+  "description": "Modern password strength checker with crack probability estimation",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["commonPasswords.js", "content.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "permissions": ["activeTab"],
+  "web_accessible_resources": [
+    {
+      "resources": ["style.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

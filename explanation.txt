@@ -1,0 +1,55 @@
+how to specify the probability to be cracked :
+    - the features to be taken into consi :
+Feature              	Python (Original)        	JavaScript (Extension)
+Length	                len(password)	                 password.length
+Uppercase/Lowercase	Regex/isupper()/islower()	/[A-Z]/g and /[a-z]/g regex
+Digits/Special Chars	isdigit()/custom regex	        /[0-9]/g and /[^a-zA-Z0-9]/g
+Entropy	Custom calculate_entropy() function	      Reimplemented in JS (see below)
+Strength Classification	Keras model with 3 classes (0=weak, 1=medium, 2=strong)	Rule-based scoring mimicking the same 3 classes
+
+
+   the entropy is being calculated as follow:
+function calculateEntropy(password) {
+  const counts = {};
+  for (const char of password) counts[char] = (counts[char] || 0) + 1;
+  let entropy = 0;
+  for (const char in counts) {
+    const p = counts[char] / password.length;
+    entropy -= p * Math.log2(p);
+  }
+  return entropy;
+}
+
+
+function estimateCrackProbability(password) {
+  // Calculate the same features used in your Python model
+  const features = { 
+    length: password.length,
+    uppercase: (password.match(/[A-Z]/g) || []).length,
+    lowercase: (password.match(/[a-z]/g) || []).length,
+    digits: (password.match(/[0-9]/g) || []).length,
+    special: (password.match(/[^a-zA-Z0-9]/g) || []).length,
+    hasUpper: /[A-Z]/.test(password) ? 1 : 0,
+    hasLower: /[a-z]/.test(password) ? 1 : 0,
+    hasDigit: /[0-9]/.test(password) ? 1 : 0,
+    hasSpecial: /[^a-zA-Z0-9]/.test(password) ? 1 : 0,
+    entropy: calculateEntropy(password) // Replicates entropy calculation
+  };
+  
+  // Simplified scoring (matches your model's logic)
+  let strengthScore = 0;
+  strengthScore += Math.min(40, password.length * 2); // Length bonus
+  strengthScore += (features.hasUpper + features.hasLower + features.hasDigit + features.hasSpecial) * 5;
+  strengthScore += features.hasUpper * 10;
+  strengthScore += features.hasDigit * 10;
+  strengthScore += features.hasSpecial * 20;
+  strengthScore += Math.min(10, features.entropy * 2);
+  
+  // Classify into 3 categories (like your Python model)
+  if (strengthScore >= 80) return { strength: 2, probability: "less than 25%", message: "Very difficult to crack" };
+  else if (strengthScore >= 50) return { strength: 1, probability: "more than 50%", message: "Could be stronger" };
+  else return { strength: 0, probability: "more than 75%", message: "Easy to crack" };
+}
+
+
+==> this was done based modeling a data of more than 600000, the according link: https://www.kaggle.com/datasets/bhavikbb/password-strength-classifier-dataset/data
